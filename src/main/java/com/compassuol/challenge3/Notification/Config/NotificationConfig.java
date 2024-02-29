@@ -1,7 +1,6 @@
 package com.compassuol.challenge3.Notification.Config;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
