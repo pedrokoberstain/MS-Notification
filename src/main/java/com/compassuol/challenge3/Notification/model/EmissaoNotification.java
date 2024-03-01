@@ -1,23 +1,24 @@
 package com.compassuol.challenge3.Notification.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Entity
-@Getter
-@Setter
+@Document
 @RequiredArgsConstructor
 public class EmissaoNotification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String email;
     private String event;
     private String date;
 
+    public EmissaoNotification(String email, String event, String date) {
+        this.email = email;
+        this.event = event;
+        this.date = date;
+    }
 }
