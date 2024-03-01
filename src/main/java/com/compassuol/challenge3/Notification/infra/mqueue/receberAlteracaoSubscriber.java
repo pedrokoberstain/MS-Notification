@@ -1,7 +1,7 @@
 package com.compassuol.challenge3.Notification.infra.mqueue;
 
 import com.compassuol.challenge3.Notification.model.EmissaoNotification;
-import com.compassuol.challenge3.Notification.repository.NotificationRepository;
+import com.compassuol.challenge3.Notification.repository.MongoNotificationRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,17 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class receberAlteracaoSubscriber {
 
-    private final NotificationRepository notificationRepository;
+    private final MongoNotificationRepository notificationRepository;
 
     @Transactional
     @RabbitListener(queues = "${mq.queues.notification}")
     public void receberAlteracao(@Payload String json) throws JsonProcessingException {
         try {
-        EmissaoNotification emissaoNotification = convertIntoEmissaoNotification(json);
-        notificationRepository.save(emissaoNotification);
-    } catch (JsonProcessingException e) {
-        e.printStackTrace();
-    }
+            EmissaoNotification emissaoNotification = convertIntoEmissaoNotification(json);
+            notificationRepository.save(emissaoNotification);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     private EmissaoNotification convertIntoEmissaoNotification(String json) throws JsonProcessingException {
